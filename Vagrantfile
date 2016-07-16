@@ -24,9 +24,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host.vm.provision :shell, path: "set-dns.sh"
     host.vm.provision :shell, :path => "install-vault.sh"
     host.vm.provision :shell, :path => "run-vault-server.sh", args: CONSUL_JOIN_ADDRESS
-    host.vm.provision :shell, :path => "set-vault-sshkey.sh"
     host.vm.provision :shell, :path => "install-vault-ssh-helper.sh"
-    #host.vm.provision :shell, :path => "set-vault-otp.sh"
   end
 
 end
