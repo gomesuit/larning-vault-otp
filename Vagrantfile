@@ -19,10 +19,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host.vm.network "private_network", ip: _PRIVATE_IP_ADDRESS
     host.vm.provision :shell, :path => "install-common-package.sh"
     host.vm.provision :shell, :path => "stop-security.sh"
+    host.vm.provision :shell, path: "install-consul.sh"
+    host.vm.provision :shell, path: "run-consul-server.sh", args: _CONSUL_ARGS
+    host.vm.provision :shell, path: "set-dns.sh"
     host.vm.provision :shell, :path => "install-vault.sh"
-    host.vm.provision :shell, :path => "install-vault-ssh-helper.sh"
+    host.vm.provision :shell, :path => "run-vault-server.sh", args: CONSUL_JOIN_ADDRESS
     host.vm.provision :shell, :path => "set-vault-sshkey.sh"
-    host.vm.provision :shell, :path => "run-vault-server.sh"
+    host.vm.provision :shell, :path => "install-vault-ssh-helper.sh"
     #host.vm.provision :shell, :path => "set-vault-otp.sh"
   end
 
